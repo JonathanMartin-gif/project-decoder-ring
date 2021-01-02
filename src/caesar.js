@@ -1,3 +1,7 @@
-function caesar(input, shift, encode = true) {}
+
+
+function caesar(input, shift, encode = true) {
+
+}
 
 module.exports = caesar;
