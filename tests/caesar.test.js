@@ -21,7 +21,7 @@ describe('caesar', () => {
   it('ignores capital letters', () => {
   const expected = 'thinkful';
   const actual = caesar('ThInKfUlL', 3, encode = false);
-  expect(actual).to.include(expected);
+  expect(actual).to.equal(expected);
   })
   it('handles shifts that go past the end of the alphabet', () =>{
   const expected = 'c';

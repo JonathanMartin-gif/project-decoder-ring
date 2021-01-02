@@ -26,7 +26,7 @@ describe('polybius', () => {
   it('ignores capital letters', () => {
   const expected = 'thinkful';
   const actual = polybius('ThInKfUlL', encode = true);
-  expect(actual).to.include(expected);
+  expect(actual).to.equal(expected);
   })
   it('maintains spaces and other nonalphabetic symbols in the message, before and after encoding', () => {
   const expected = 'cheud pdjdclqh';

@@ -4,7 +4,7 @@ let chai = require('chai'), expect = chai.expect, should = chai.should(), assert
 
 describe('substitution', () => {
   it(`It returns false if the given alphabet isn't exactly 26 characters long`, ()=>{
-  const actual = substitution(input, ['a','b'], encode = true);
+  const actual = substitution('Zebra Magazine', ['a','b'], encode = true);
   expect(actual).to.be.false;
   })
   it('It correctly translates the given phrase, based on the alphabet given to the function', () =>{
@@ -19,7 +19,7 @@ describe('substitution', () => {
   it('ignores capital letters', () => {
   const expected = 'thinkful';
   const actual = substitution('ThInKfUlL', ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'], encode = true);
-  expect(actual).to.include(expected);
+  expect(actual).to.equal(expected);
   })
   it('maintains spaces and other nonalphabetic symbols in the message, before and after encoding', () => {
   const expected = 'cheud pdjdclqh';
