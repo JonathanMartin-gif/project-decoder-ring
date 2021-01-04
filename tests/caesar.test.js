@@ -1,77 +1,86 @@
 const caesar = require('../src/caesar');
 let chai = require('chai'), expect = chai.expect, should = chai.should(), assert = chai.assert;
 
-describe('caesar', () => {
-  it('returns false if the shift value is equal to 0', () => {
-  const actual = caesar('thinkful', 0, encode = false);
-  expect(actual).to.be.false;
-  })
-  it('returns false if the shift value is less than -25', () => {
-  const actual = caesar('thinkful', -30, encode = false);
-  expect(actual).to.be.false;
-  })
-  it('returns false if the shift value is greater than 25', () => {
-  const actual = caesar('thinkful', 30, encode = false);
-  expect(actual).to.be.false;
-  })
-  it('returns false if the shift not present', () => {
-  const actual = caesar('thinkful', encode = false);
-  expect(actual).to.be.false;
-  })
-  it('ignores capital letters', () => {
-  const expected = 'thinkful';
-  const actual = caesar('ThInKfUlL', 3, encode = false);
-  expect(actual).to.equal(expected);
-  })
-  it('handles shifts that go past the end of the alphabet', () =>{
-  const expected = 'c';
-  const actual = caesar('z', 3, encode = true);
-  expect(actual).to.equal(expected);
-  })
-  it('maintains spaces and other nonalphabetic symbols in the message, before and after encoding', () => {
-  const expected = 'cheud pdjdclqh';
-  const actual = caesar('Zebra Magazine', 3, encode = true);
-  expect(actual).to.equal(expected);
-  })
-  it('maintains spaces and other nonalphabetic symbols in the message, before and after decoding', () => {
-   const expected = 'zebra magazine';
-   const actual = caesar('cheud pdjdclqh', 3, encode = false);
-   expect(actual).to.equal(expected);
-  })
- });
+describe("caeser", () => {
+  it("returns false if shift value is missing", () => {
+    const actual = caesar();
+    expect(actual).to.be.false;
+  });
+  it("returns false if shift value is 0", () => {
+    const actual = caesar("", 0);
+    expect(actual).to.be.false;
+  });
+  it("returns false if shift value is greater than 25", () => {
+    const actual = caesar("", 26);
+    expect(actual).to.be.false;
+  });
+  it("returns false if shift value is less than -25", () => {
+    const actual = caesar("", -27);
+    expect(actual).to.be.false;
+  });
+  it("shifts a provided string by the shift amount", () => {
+    const expected = "ibm";
+    const actual = caesar("hal", 1);
+    expect(actual).to.equal(expected);
+  });
+  it("is case insensitive", () => {
+    const expected = "ibm";
+    const actual = caesar("HAL", 1);
+    expect(actual).to.equal(expected);
+  });
+  it("preserves whitespace", () => {
+    const expected = "qrgp rqf";
+    const actual = caesar("open pod", 2);
+    expect(actual).to.equal(expected);
+  });
+  it("preserves any nonalphabetic character", () => {
+    const expected = "@kruvh_herrnv";
+    const actual = caesar("@horse_ebooks", 3);
+    expect(actual).to.equal(expected);
+  });
+  it("handles left shifts beyond a", () => {
+    const expected = "xifyxyx";
+    const actual = caesar("alibaba", -3);
+    expect(actual).to.equal(expected);
+  });
+  it("handles shifts above z", () => {
+    const expected = "aoacss";
+    const actual = caesar("xlxzpp", 3);
+    expect(actual).to.equal(expected);
+  });
+  it("properly decodes a message", () => {
+    const expected = "this is a secret message!";
+    const actual = caesar("BPQA qa I amkzmb umaaiom!", 8, false);
+    expect(actual).to.be.equal(expected);
+  });
+});
 
- //   const expected = false;
- //  const actual = caesar(input, 0, encode = false);
- //  expect(actual).to.equal(expected);
- // })
- //  it("Values cannot be less than -25", () => {
- //  const expected = expect(actual).to.not.be.lessThan(-25);
- //  const actual = caesar(input, shift, encode = false);
- //  expect(actual).to.equal(expected);
- // })
- //  it("Values cannot be greater than 25", () => {
- //  const actual = caesar(input, shift, encode = false);
- //  expect(actual).to.be.false;
- // })
- //  it("No spaces before or after decoding", () => { 
- //  const expected = `secret m3ssages 4re fun!`;
- //  const actual = caesar(input, shift, encode = false);
- //  expect(actual).to.equal(expected);
- // })
- //  it("No spaces before or after non-alphabetic symbols", () => {
- //  const expected = `secret m3ssages 4re fun!`;
- //  const actual = caesar(input, shift, encode = false);
- //  expect(actual).to.equal(expected);
- // })
- //  it("No spaces before or after encoding", () => {
- //  const expected = `secret m3ssages 4re fun!`;
- //  const actual = caesar(input, shift, encode = false);
- //  expect(actual).to.equal(expected);
- //  })
- //  it("'a' or 'A' should be encoded with the same result", () => {
- //  expect(a, A).to.equal(same);
- //  })
- //  it("If a letter is shifted so that it goes 'off' the alphabet, it should wrap around to the front of the alphabet", () => {
-  
- //  })
+
+// describe('Caesar Shift function', ()=>{
+//   it('should return false if shift value is 0, > 25, < -25, or not given', ()=>{
+//     expect(caesar('false', -26)).to.be.false;
+//     expect(caesar('false', 26)).to.be.false;
+//     expect(caesar('false', 0)).to.be.false;
+//     expect(caesar('false')).to.be.false;
+//   });
+//   it('should maintain spaces and other non-alphabetic symbols', ()=>{
+//     expect(caesar('a !( a', 1)).to.eql('b !( b');
+//     expect(caesar('a !( a', 1, false)).to.eql('z !( z');
+//   });
+//   it('should handle shifts that go past the end of the alphabet', ()=>{
+//     expect(caesar('z', 3)).to.eql('c');
+//     expect(caesar('c', 3, false)).to.eql('z');
+//   });
+//   it('should handle shifts in the negative direction', ()=>{
+//     expect(caesar('z', -3)).to.eql('w');
+//     expect(caesar('c', -3, false)).to.eql('f');
+//   });
+//   it('should ignore capitalization', ()=>{
+//     expect(caesar('AaABbB', 1)).to.eql(caesar('aaabbb', 1));
+//     expect(caesar('aAabBb', 1, false)).to.eql(caesar('aaabbb', 1, false));
+//   });
+// });
+
+
+
 
